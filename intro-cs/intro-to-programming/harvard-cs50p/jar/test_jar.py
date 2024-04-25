@@ -7,7 +7,7 @@ def test_jar():
 
 
 def test_init():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         Jar()
     with pytest.raises(ValueError):
         Jar(0)
