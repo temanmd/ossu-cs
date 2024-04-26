@@ -1,28 +1,28 @@
-from seasons import minutes_from_date
+from seasons import calc_minutes, format_to_words
 from datetime import date, timedelta
 import pytest
 
 
-def test_calc_minutes_365_days():
-    _date = date.today() - timedelta(days=365)
+def test_format_to_words_365_days():
+    minutes = 365 * 24 * 60
     assert(
-        minutes_from_date(str(_date))
+        format_to_words(minutes)
         == "Five hundred twenty-five thousand, six hundred minutes"
     )
 
 
-def test_calc_minutes_13_days():
-    _date = date.today() - timedelta(days=13)
+def test_format_to_words_13_days():
+    minutes = 13 * 24 * 60
     assert(
-        minutes_from_date(str(_date))
+        format_to_words(minutes)
         == "Eighteen thousand, seven hundred twenty minutes"
     )
 
 
 def test_calc_minutes_invalid_date():
     with pytest.raises(SystemExit):
-        minutes_from_date("")
+        calc_minutes("")
     with pytest.raises(SystemExit):
-        minutes_from_date("January 1, 1999")
+        calc_minutes("January 1, 1999")
     with pytest.raises(SystemExit):
-        minutes_from_date("foobar")
+        calc_minutes("foobar")

@@ -6,11 +6,6 @@ import inflect
 inflect_engine = inflect.engine()
 
 
-def minutes_from_date(date_input):
-    minutes = calc_minutes(date_input)
-    return format_to_words(minutes)
-
-
 def calc_minutes(date_input):
     try:
         parsed_date = date.fromisoformat(date_input)
@@ -29,7 +24,8 @@ def format_to_words(minutes):
 
 def main():
     date_input = input("Date of Birth: ").strip()
-    print(minutes_from_date(date_input))
+    minutes = calc_minutes(date_input)
+    print(format_to_words(minutes))
 
 
 if __name__ == "__main__":
