@@ -19,6 +19,13 @@ def test_format_to_words_13_days():
     )
 
 
+def test_calc_minutes():
+    _date = date.today() - timedelta(days=365)
+    assert calc_minutes(str(_date)) == 525_600
+    _date = date.today() - timedelta(days=3)
+    assert calc_minutes(str(_date)) == 4320
+
+
 def test_calc_minutes_invalid_date():
     with pytest.raises(SystemExit):
         calc_minutes("")
