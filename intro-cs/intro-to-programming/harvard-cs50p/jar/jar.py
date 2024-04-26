@@ -1,5 +1,5 @@
 class Jar:
-    def __init__(self, capacity):
+    def __init__(self, capacity=12):
         invalid_capacity = (
             not isinstance(capacity, int)
             or capacity < 1
@@ -17,7 +17,7 @@ class Jar:
     def size(self):
         return self._size
 
-    def deposite(self, number):
+    def deposit(self, number):
         if self.__size_left() < number:
             raise ValueError
         self._size += number
