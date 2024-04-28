@@ -24,7 +24,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [x] Unit Tests
 - [x] File I/O
 - [x] Regular Expressions
-- [ ] Object-Oriented Programming
+- [x] Object-Oriented Programming
 - [ ] Et Cetera
 
 ### Introduction to Computer Science
