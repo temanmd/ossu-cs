@@ -12,10 +12,10 @@ import pytest
 
 def test_init():
     assert init("Multiverse Bank") == {
-        bank: {
-            name: "Multiverse Bank",
-            accounts: [
-                {id: 1, name: "Boss", balance: 80_000_000_000, status: "active"}
+        "bank": {
+            "name": "Multiverse Bank",
+            "accounts": [
+                {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
             ],
         }
     }
@@ -24,24 +24,24 @@ def test_init():
 def test_get_account():
     bank = init("Multiverse Bank")
     assert get_account(1, bank=bank) == {
-        id: 1,
-        name: "Boss",
-        balance: 80_000_000_000,
-        status: "active",
+        "id": 1,
+        "name": "Boss",
+        "balance": 80_000_000_000,
+        "status": "active",
     }
 
 
 def test_add_account():
     bank = init("Multiverse Bank")
-    account_info = {name: "Artem"}
+    account_info = {"name": "Artem"}
     assert add_account(account_info, bank=bank) == {
-        {id: 2, name: "Artem", balance: 0, status: "active"}
+        {id: 2, "name": "Artem", "balance": 0, "status": "active"}
     }
 
 
 def test_freeze_account():
     bank = init("Multiverse Bank")
-    account_info = {name: "Scammer"}
+    account_info = {"name": "Scammer"}
     account = add_account(account_info, bank=bank)
     assert account["status"] == "active"
 
@@ -52,7 +52,7 @@ def test_freeze_account():
 
 def test_change_account_name():
     bank = init("Multiverse Bank")
-    account_info = {name: "Alex"}
+    account_info = {"name": "Alex"}
     account = add_account(account_info, bank=bank)
     assert account["name"] == "Alex"
 
@@ -63,7 +63,7 @@ def test_change_account_name():
 
 def test_deposit():
     bank = init("Multiverse Bank")
-    account_info = {name: "Alex"}
+    account_info = {"name": "Alex"}
     account = add_account(account_info, bank=bank)
     assert account["balance"] == 0
 
@@ -83,7 +83,7 @@ def test_deposit():
 
 def test_withdraw():
     bank = init("Multiverse Bank")
-    account_info = {name: "Alex"}
+    account_info = {"name": "Alex"}
     account = add_account(account_info, bank=bank)
     deposit(account["id"], amount=5000, bank=bank)
 
