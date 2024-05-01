@@ -75,6 +75,11 @@ def test_deposit():
     account = get_account(account["id"], bank=bank)
     assert account["balance"] == 1620
 
+    freeze_account(account["id"], bank=bank)
+
+    with pytest.raises(AccountIsFrozenError):
+        deposit(account["id"], amount=100, bank=bank)
+
 
 def test_withdraw():
     bank = init("Multiverse Bank")
