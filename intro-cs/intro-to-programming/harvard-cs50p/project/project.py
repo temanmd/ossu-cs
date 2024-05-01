@@ -32,13 +32,11 @@ def get_account(id, bank):
 
 def freeze_account(id, bank):
     account = get_account(id, bank=bank)
-    if account["status"] == "frozen":
-        pass
-    else:
+    if account["status"] != "frozen":
         index = bank["accounts"].index(account)
         account["status"] = "frozen"
         bank["accounts"][index] = account
-        return account
+    return account
 
 
 def unfreeze_account(id, bank):
