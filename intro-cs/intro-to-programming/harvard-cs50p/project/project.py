@@ -41,6 +41,15 @@ def freeze_account(id, bank):
         return account
 
 
+def unfreeze_account(id, bank):
+    account = get_account(id, bank=bank)
+    if account["status"] == "frozen":
+        index = bank["accounts"].index(account)
+        account["status"] = "active"
+        bank["accounts"][index] = account
+    return account
+
+
 def change_account_name(id, new_name, bank):
     account = get_account(id, bank=bank)
     index = bank["accounts"].index(account)

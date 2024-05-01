@@ -6,6 +6,7 @@ from project import (
     get_account,
     add_account,
     freeze_account,
+    unfreeze_account,
     change_account_name,
     deposit,
     withdraw,
@@ -62,6 +63,16 @@ def test_freeze_account():
     freeze_account(account["id"], bank=bank)
     account = get_account(account["id"], bank=bank)
     assert account["status"] == "frozen"
+
+
+def test_unfreeze_account():
+    bank = init("Multiverse Bank")
+    account_info = {"name": "Suspicious Nick"}
+    account = add_account(account_info, bank=bank)
+    freeze_account(account["id"], bank=bank)
+    unfreeze_account(account["id"], bank=bank)
+    account = add_account(account_info, bank=bank)
+    assert account["status"] == "active"
 
 
 def test_change_account_name():
