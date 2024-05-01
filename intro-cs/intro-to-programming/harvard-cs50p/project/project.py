@@ -172,6 +172,25 @@ def process_show_action(params, bank):
         render_account(int(params[0]), bank)
 
 
+def process_add_action(params, bank):
+    name_parts = []
+    for part in params:
+        name_parts.append(part.strip('"'))
+    name = " ".join(name_parts)
+    account = add_account({"name": name}, bank=bank)
+    print(account)
+
+
+def process_change_action(params, bank):
+    id = int(params[0])
+    name_parts = []
+    for part in params[1:]:
+        name_parts.append(part.strip('"'))
+    name = " ".join(name_parts)
+    account = change_account_name(id, new_name=name, bank=bank)
+    print(account)
+
+
 def process_bank_with_command(command, bank):
     print()
     parts = command.split()
@@ -181,6 +200,10 @@ def process_bank_with_command(command, bank):
     match action:
         case "show":
             process_show_action(params, bank)
+        case "add":
+            process_add_action(params, bank)
+        case "change":
+            process_change_action(params, bank)
         case "help":
             print(welcome_info(bank["name"]))
         case "exit":
