@@ -1,3 +1,10 @@
+import re
+import sys
+
+
+GOODBYE_TEXT = "Good bye!"
+
+
 class TColors:
     HEADER = "\033[95m"
     OKBLUE = "\033[94m"
@@ -19,6 +26,10 @@ class AccountNotFoundError(Exception):
 
 
 class OutOfMoneyError(Exception):
+    pass
+
+
+class InvalidCommandError(Exception):
     pass
 
 
@@ -122,7 +133,43 @@ def welcome_info(bank_name):
 
 
 def render_accounts(accounts):
-    print(f"Accounts: {accounts}")
+    print(accounts)
+
+
+def render_account(id, bank):
+    try:
+        print(get_account(id, bank=bank))
+    except AccountNotFoundError:
+        print(f"{TColors.WARNING}Account with id={id} not found{TColors.ENDC}")
+
+
+def validate_command(command):
+    regex = (
+        r"^(show all|"
+        r"show \d+|"
+        r"add \"([a-zA-Z]|\s)+\"|"
+        r"change \d+ \"([a-zA-Z]|\s)+\"|"
+        r"freeze \d+|"
+        r"unfreeze \d+|"
+        r"deposit \d+ (\d|_)+|"
+        r"withdraw \d+ (\d|_)+|"
+        r"help|exit)$"
+    )
+
+    if not re.search(regex, command):
+        print(
+            f'\n{TColors.FAIL}Invalid command using, to show valid using format, type "help"{TColors.ENDC}'
+        )
+        return False
+
+    return True
+
+
+def process_show_action(params, bank):
+    if params[0] == "all":
+        render_accounts(bank["accounts"])
+    else:
+        render_account(int(params[0]), bank)
 
 
 def process_bank_with_command(command, bank):
@@ -133,31 +180,34 @@ def process_bank_with_command(command, bank):
 
     match action:
         case "show":
-            if params[0] == "all":
-                render_accounts(get_accounts(bank))
-                return
+            process_show_action(params, bank)
         case "help":
             print(welcome_info(bank["name"]))
+        case "exit":
+            sys.exit(GOODBYE_TEXT)
         case _:
-            print(
-                f'{TColors.FAIL}Unknown command, to show available commands, type "help"{TColors.ENDC}'
-            )
+            print(f"{TColors.FAIL}Very odd error{TColors.ENDC}")
             return
 
 
 def main():
-    bank_name = input("Input bank name: ").strip()
+    try:
+        bank_name = input("Input bank name: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        sys.exit(f"\n\n{GOODBYE_TEXT}")
     print()
     bank = init(bank_name)
     print(welcome_info(bank_name))
 
     while True:
-        command = input(f"\n{TColors.UNDERLINE}Input command:{TColors.ENDC} ").strip()
-        if command == "exit":
-            break
-        process_bank_with_command(command, bank=bank)
-
-    print("\nGood bye!")
+        try:
+            command = input(
+                f"\n{TColors.UNDERLINE}Input command:{TColors.ENDC} "
+            ).strip()
+            if validate_command(command):
+                process_bank_with_command(command, bank=bank)
+        except (KeyboardInterrupt, EOFError):
+            sys.exit(f"\n\n{GOODBYE_TEXT}")
 
 
 if __name__ == "__main__":
