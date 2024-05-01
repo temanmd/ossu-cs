@@ -108,16 +108,41 @@ def welcome_info(bank_name):
     return (
         f'Welcome to "{bank_name}" bank!\n\n'
         "You can manage your bank with commands:\n\n"
-        f"1) {TColors.BOLD}show all{TColors.ENDC} (show all accounts)\n"
-        f"2) {TColors.BOLD}show{TColors.ENDC} 1 (show individual account by id)\n"
-        f'3) {TColors.BOLD}add{TColors.ENDC} "Name" (add new account with name)\n'
-        f'4) {TColors.BOLD}change{TColors.ENDC} 1 "New Name" (change account\'s name by id)\n'
-        f"5) {TColors.BOLD}freeze{TColors.ENDC} 1 (freeze an account by id)\n"
-        f"6) {TColors.BOLD}unfreeze{TColors.ENDC} 1 (unfreeze an account by id)\n"
-        f"7) {TColors.BOLD}deposit{TColors.ENDC} 1 12_000 (deposit account's balance by id)\n"
-        f"8) {TColors.BOLD}withdraw{TColors.ENDC} 1 5_000 (withdraw account's balance by id)\n"
-        f"9) {TColors.BOLD}help{TColors.ENDC} (show this message again)\n"
+        f"    {TColors.BOLD}show all{TColors.ENDC} (show all accounts)\n"
+        f"    {TColors.BOLD}show{TColors.ENDC} 1 (show individual account by id)\n"
+        f'    {TColors.BOLD}add{TColors.ENDC} "Name" (add new account with name)\n'
+        f'    {TColors.BOLD}change{TColors.ENDC} 1 "New Name" (change account\'s name by id)\n'
+        f"    {TColors.BOLD}freeze{TColors.ENDC} 1 (freeze an account by id)\n"
+        f"    {TColors.BOLD}unfreeze{TColors.ENDC} 1 (unfreeze an account by id)\n"
+        f"    {TColors.BOLD}deposit{TColors.ENDC} 1 12_000 (deposit account's balance by id)\n"
+        f"    {TColors.BOLD}withdraw{TColors.ENDC} 1 5_000 (withdraw account's balance by id)\n"
+        f"    {TColors.BOLD}help{TColors.ENDC} (show this message again)\n"
+        f"    {TColors.BOLD}exit{TColors.ENDC} (exit the program)"
     )
+
+
+def render_accounts(accounts):
+    print(f"Accounts: {accounts}")
+
+
+def process_bank_with_command(command, bank):
+    print()
+    parts = command.split()
+    action = parts[0]
+    params = parts[1:]
+
+    match action:
+        case "show":
+            if params[0] == "all":
+                render_accounts(get_accounts(bank))
+                return
+        case "help":
+            print(welcome_info(bank["name"]))
+        case _:
+            print(
+                f'{TColors.FAIL}Unknown command, to show available commands, type "help"{TColors.ENDC}'
+            )
+            return
 
 
 def main():
@@ -125,6 +150,14 @@ def main():
     print()
     bank = init(bank_name)
     print(welcome_info(bank_name))
+
+    while True:
+        command = input(f"\n{TColors.UNDERLINE}Input command:{TColors.ENDC} ").strip()
+        if command == "exit":
+            break
+        process_bank_with_command(command, bank=bank)
+
+    print("\nGood bye!")
 
 
 if __name__ == "__main__":
