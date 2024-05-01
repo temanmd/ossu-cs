@@ -54,7 +54,7 @@ def get_account(id, bank):
     if id in ids:
         return list(filter(lambda account: account["id"] == id, bank["accounts"]))[0]
     else:
-        raise AccountNotFoundError()
+        raise AccountNotFoundError(id)
 
 
 def freeze_account(id, bank):
@@ -137,10 +137,7 @@ def render_accounts(accounts):
 
 
 def render_account(id, bank):
-    try:
-        print(get_account(id, bank=bank))
-    except AccountNotFoundError:
-        print(f"{TColors.WARNING}Account with id={id} not found{TColors.ENDC}")
+    print(get_account(id, bank=bank))
 
 
 def validate_command(command):
@@ -191,26 +188,45 @@ def process_change_action(params, bank):
     print(account)
 
 
+def process_freeze_action(params, bank):
+    id = int(params[0])
+    account = freeze_account(id, bank=bank)
+    print(account)
+
+
+def process_unfreeze_action(params, bank):
+    id = int(params[0])
+    account = unfreeze_account(id, bank=bank)
+    print(account)
+
+
 def process_bank_with_command(command, bank):
     print()
     parts = command.split()
     action = parts[0]
     params = parts[1:]
 
-    match action:
-        case "show":
-            process_show_action(params, bank)
-        case "add":
-            process_add_action(params, bank)
-        case "change":
-            process_change_action(params, bank)
-        case "help":
-            print(welcome_info(bank["name"]))
-        case "exit":
-            sys.exit(GOODBYE_TEXT)
-        case _:
-            print(f"{TColors.FAIL}Very odd error{TColors.ENDC}")
-            return
+    try:
+        match action:
+            case "show":
+                process_show_action(params, bank)
+            case "add":
+                process_add_action(params, bank)
+            case "change":
+                process_change_action(params, bank)
+            case "freeze":
+                process_freeze_action(params, bank)
+            case "unfreeze":
+                process_unfreeze_action(params, bank)
+            case "help":
+                print(welcome_info(bank["name"]))
+            case "exit":
+                sys.exit(GOODBYE_TEXT)
+            case _:
+                print(f"{TColors.FAIL}Very odd error{TColors.ENDC}")
+                return
+    except AccountNotFoundError as error:
+        print(f"{TColors.WARNING}Account with id={error} not found{TColors.ENDC}")
 
 
 def main():
