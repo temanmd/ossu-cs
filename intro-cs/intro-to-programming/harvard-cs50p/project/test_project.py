@@ -7,6 +7,7 @@ from project import (
     change_account_name,
     deposit,
     withdraw,
+    get_ids,
 )
 import pytest
 
@@ -18,6 +19,13 @@ def test_init():
             {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
         ],
     }
+
+
+def test_get_ids():
+    bank = init("Multiverse Bank")
+    assert get_ids(bank) == [1]
+    add_account({"name": "Alex"}, bank=bank)
+    assert get_ids(bank) == [1, 2]
 
 
 def test_get_account():

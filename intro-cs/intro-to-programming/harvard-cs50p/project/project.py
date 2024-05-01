@@ -6,8 +6,12 @@ class AccountNotFoundError(Exception):
     pass
 
 
+def get_ids(bank):
+    return sorted(map(lambda account: account["id"], bank["accounts"]))
+
+
 def add_account(info, bank):
-    ids = sorted(map(lambda account: account["id"], bank["accounts"]))
+    ids = get_ids(bank)
     new_id = ids[-1] + 1 if ids else 1
     new_account = {"id": new_id, "name": info["name"], "balance": 0, "status": "active"}
     bank["accounts"].append(new_account)
@@ -15,7 +19,7 @@ def add_account(info, bank):
 
 
 def get_account(id, bank):
-    ids = sorted(map(lambda account: account["id"], bank["accounts"]))
+    ids = get_ids(bank)
     if id in ids:
         return list(filter(lambda account: account["id"] == id, bank["accounts"]))[0]
     else:
