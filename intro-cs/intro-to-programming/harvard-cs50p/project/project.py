@@ -92,11 +92,8 @@ def init(bank_name):
     return bank
 
 
-def main():
-    bank_name = input("Input bank name: ").strip()
-    print()
-    bank = init(bank_name)
-    welcome_info = (
+def welcome_info():
+    return (
         f'Welcome to "{bank_name}" bank!\n\n'
         "You can manage your bank with commands:\n\n"
         "1) show all (show all accounts)\n"
@@ -108,8 +105,13 @@ def main():
         "7) deposit 1 12_000 (deposit account's balance by id)\n"
         "8) withdraw 1 5_000 (withdraw account's balance by id)\n"
     )
-    print(welcome_info)
-    print(bank)
+
+
+def main():
+    bank_name = input("Input bank name: ").strip()
+    print()
+    bank = init(bank_name)
+    print(welcome_info())
 
 
 if __name__ == "__main__":
