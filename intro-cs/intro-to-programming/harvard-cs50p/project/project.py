@@ -86,7 +86,7 @@ def change_account_name(id, new_name, bank):
 def deposit(id, amount, bank):
     account = get_account(id, bank=bank)
     if account["status"] == "frozen":
-        raise AccountIsFrozenError()
+        raise AccountIsFrozenError(id)
     index = bank["accounts"].index(account)
     account["balance"] += amount
     bank["accounts"][index] = account
@@ -96,9 +96,9 @@ def deposit(id, amount, bank):
 def withdraw(id, amount, bank):
     account = get_account(id, bank=bank)
     if account["balance"] < amount:
-        raise OutOfMoneyError()
+        raise OutOfMoneyError(id, account["balance"])
     if account["status"] == "frozen":
-        raise AccountIsFrozenError()
+        raise AccountIsFrozenError(1)
     index = bank["accounts"].index(account)
     account["balance"] -= amount
     bank["accounts"][index] = account
@@ -200,6 +200,18 @@ def process_unfreeze_action(params, bank):
     print(account)
 
 
+def process_deposit_action(params, bank):
+    id = int(params[0])
+    amount = int(params[1])
+    print(deposit(id, amount=amount, bank=bank))
+
+
+def process_withdraw_action(params, bank):
+    id = int(params[0])
+    amount = int(params[1])
+    print(withdraw(id, amount=amount, bank=bank))
+
+
 def process_bank_with_command(command, bank):
     print()
     parts = command.split()
@@ -218,6 +230,10 @@ def process_bank_with_command(command, bank):
                 process_freeze_action(params, bank)
             case "unfreeze":
                 process_unfreeze_action(params, bank)
+            case "deposit":
+                process_deposit_action(params, bank)
+            case "withdraw":
+                process_withdraw_action(params, bank)
             case "help":
                 print(welcome_info(bank["name"]))
             case "exit":
@@ -227,6 +243,13 @@ def process_bank_with_command(command, bank):
                 return
     except AccountNotFoundError as error:
         print(f"{TColors.WARNING}Account with id={error} not found{TColors.ENDC}")
+    except AccountIsFrozenError as error:
+        print(f"{TColors.WARNING}Account with id={error} is frozen{TColors.ENDC}")
+    except OutOfMoneyError as error:
+        print(
+            f"{TColors.WARNING}Account with id={error.args[0]} has insufficient funds\n"
+            f"Balance: {error.args[1]}{TColors.ENDC}"
+        )
 
 
 def main():
