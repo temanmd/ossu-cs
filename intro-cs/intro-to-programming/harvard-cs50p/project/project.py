@@ -1,3 +1,15 @@
+class TColors:
+    HEADER = "\033[95m"
+    OKBLUE = "\033[94m"
+    OKCYAN = "\033[96m"
+    OKGREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
+
 class AccountIsFrozenError(Exception):
     pass
 
@@ -96,15 +108,15 @@ def welcome_info(bank_name):
     return (
         f'Welcome to "{bank_name}" bank!\n\n'
         "You can manage your bank with commands:\n\n"
-        "1) show all (show all accounts)\n"
-        "2) show 1 (show individual account by id)\n"
-        '3) add "Name" (add new account with name)\n'
-        '4) change 1 "New Name" (change account\'s name by id)\n'
-        "5) freeze 1 (freeze an account by id)\n"
-        "6) unfreeze 1 (unfreeze an account by id)\n"
-        "7) deposit 1 12_000 (deposit account's balance by id)\n"
-        "8) withdraw 1 5_000 (withdraw account's balance by id)\n"
-        "9) help (show this message again)\n"
+        f"1) {TColors.BOLD}show all{TColors.ENDC} (show all accounts)\n"
+        f"2) {TColors.BOLD}show{TColors.ENDC} 1 (show individual account by id)\n"
+        f'3) {TColors.BOLD}add{TColors.ENDC} "Name" (add new account with name)\n'
+        f'4) {TColors.BOLD}change{TColors.ENDC} 1 "New Name" (change account\'s name by id)\n'
+        f"5) {TColors.BOLD}freeze{TColors.ENDC} 1 (freeze an account by id)\n"
+        f"6) {TColors.BOLD}unfreeze{TColors.ENDC} 1 (unfreeze an account by id)\n"
+        f"7) {TColors.BOLD}deposit{TColors.ENDC} 1 12_000 (deposit account's balance by id)\n"
+        f"8) {TColors.BOLD}withdraw{TColors.ENDC} 1 5_000 (withdraw account's balance by id)\n"
+        f"9) {TColors.BOLD}help{TColors.ENDC} (show this message again)\n"
     )
 
 
