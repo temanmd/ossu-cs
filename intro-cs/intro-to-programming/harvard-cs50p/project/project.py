@@ -93,7 +93,23 @@ def init(bank_name):
 
 
 def main():
-    pass
+    bank_name = input("Input bank name: ").strip()
+    print()
+    bank = init(bank_name)
+    welcome_info = (
+        f'Welcome to "{bank_name}" bank!\n\n'
+        "You can manage your bank with commands:\n\n"
+        "1) show all (show all accounts)\n"
+        "2) show 1 (show individual account by id)\n"
+        '3) add "Name" (add new account with name)\n'
+        '4) change 1 "New Name" (change account\'s name by id)\n'
+        "5) freeze 1 (freeze an account by id)\n"
+        "6) unfreeze 1 (unfreeze an account by id)\n"
+        "7) deposit 1 12_000 (deposit account's balance by id)\n"
+        "8) withdraw 1 5_000 (withdraw account's balance by id)\n"
+    )
+    print(welcome_info)
+    print(bank)
 
 
 if __name__ == "__main__":
