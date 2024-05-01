@@ -4,6 +4,7 @@ from project import (
     OutOfMoneyError,
     init,
     get_account,
+    get_accounts,
     add_account,
     freeze_account,
     unfreeze_account,
@@ -22,6 +23,25 @@ def test_init():
             {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
         ],
     }
+
+
+def test_get_accounts():
+    bank = init("Multiverse Bank")
+    assert get_accounts(bank) == [
+        {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
+    ]
+
+    alex = add_account({"name": "Alex"}, bank=bank)
+    nick = add_account({"name": "Nick"}, bank=bank)
+    deposit(alex["id"], amount=1200, bank=bank)
+    deposit(nick["id"], amount=50_000, bank=bank)
+    withdraw(nick["id"], amount=12_500, bank=bank)
+    freeze_account(alex["id"], bank=bank)
+    assert get_accounts(bank) == [
+        {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"},
+        {"id": 2, "name": "Alex", "balance": 1200, "status": "frozen"},
+        {"id": 3, "name": "Nick", "balance": 37_500, "status": "active"},
+    ]
 
 
 def test_get_ids():

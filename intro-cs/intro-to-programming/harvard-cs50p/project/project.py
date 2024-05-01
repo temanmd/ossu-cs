@@ -14,6 +14,10 @@ def get_ids(bank):
     return sorted(map(lambda account: account["id"], bank["accounts"]))
 
 
+def get_accounts(bank):
+    return bank["accounts"]
+
+
 def add_account(info, bank):
     ids = get_ids(bank)
     new_id = ids[-1] + 1 if ids else 1
