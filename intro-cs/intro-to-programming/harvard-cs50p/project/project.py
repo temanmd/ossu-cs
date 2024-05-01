@@ -37,8 +37,12 @@ def freeze_account(id, bank):
         return account
 
 
-def change_account_name():
-    pass
+def change_account_name(id, new_name, bank):
+    account = get_account(id, bank=bank)
+    index = bank["accounts"].index(account)
+    account["name"] = new_name
+    bank["accounts"][index] = account
+    return account
 
 
 def deposit(id, amount, bank):
