@@ -1,5 +1,6 @@
 from project import (
     AccountIsFrozenError,
+    AccountNotFoundError,
     init,
     get_account,
     add_account,
@@ -36,6 +37,8 @@ def test_get_account():
         "balance": 80_000_000_000,
         "status": "active",
     }
+    with pytest.raises(AccountNotFoundError):
+        get_account(123, bank=bank)
 
 
 def test_add_account():
