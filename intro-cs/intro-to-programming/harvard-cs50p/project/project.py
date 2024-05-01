@@ -26,8 +26,15 @@ def get_account(id, bank):
         raise AccountNotFoundError()
 
 
-def freeze_account():
-    pass
+def freeze_account(id, bank):
+    account = get_account(id, bank=bank)
+    if account["status"] == "frozen":
+        pass
+    else:
+        index = bank["accounts"].index(account)
+        account["status"] = "frozen"
+        bank["accounts"][index] = account
+        return account
 
 
 def change_account_name():
