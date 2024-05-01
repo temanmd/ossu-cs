@@ -1,6 +1,7 @@
 from project import (
     AccountIsFrozenError,
     AccountNotFoundError,
+    OutOfMoneyError,
     init,
     get_account,
     add_account,
@@ -45,7 +46,10 @@ def test_add_account():
     bank = init("Multiverse Bank")
     account_info = {"name": "Artem"}
     assert add_account(account_info, bank=bank) == {
-        {id: 2, "name": "Artem", "balance": 0, "status": "active"}
+        "id": 2,
+        "name": "Artem",
+        "balance": 0,
+        "status": "active",
     }
 
 

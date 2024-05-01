@@ -6,6 +6,10 @@ class AccountNotFoundError(Exception):
     pass
 
 
+class OutOfMoneyError(Exception):
+    pass
+
+
 def get_ids(bank):
     return sorted(map(lambda account: account["id"], bank["accounts"]))
 
@@ -47,17 +51,24 @@ def change_account_name(id, new_name, bank):
 
 def deposit(id, amount, bank):
     account = get_account(id, bank=bank)
-    if account["status"] == "active":
-        index = bank["accounts"].index(account)
-        account["balance"] += amount
-        bank["accounts"][index] = account
-        return account
-    else:
+    if account["status"] == "frozen":
         raise AccountIsFrozenError()
+    index = bank["accounts"].index(account)
+    account["balance"] += amount
+    bank["accounts"][index] = account
+    return account
 
 
-def withdraw():
-    pass
+def withdraw(id, amount, bank):
+    account = get_account(id, bank=bank)
+    if account["balance"] < amount:
+        raise OutOfMoneyError()
+    if account["status"] == "frozen":
+        raise AccountIsFrozenError()
+    index = bank["accounts"].index(account)
+    account["balance"] -= amount
+    bank["accounts"][index] = account
+    return account
 
 
 def init(bank_name):
