@@ -1,4 +1,5 @@
 from project import (
+    AccountIsFrozenError,
     init,
     get_account,
     add_account,
@@ -12,12 +13,10 @@ import pytest
 
 def test_init():
     assert init("Multiverse Bank") == {
-        "bank": {
-            "name": "Multiverse Bank",
-            "accounts": [
-                {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
-            ],
-        }
+        "name": "Multiverse Bank",
+        "accounts": [
+            {"id": 1, "name": "Boss", "balance": 80_000_000_000, "status": "active"}
+        ],
     }
 
 
