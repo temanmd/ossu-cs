@@ -99,13 +99,15 @@ def process_unfreeze_action(params, bank):
 def process_deposit_action(params, bank):
     id = int(params[0])
     amount = int(params[1])
-    print(deposit(id, amount=amount, bank=bank))
+    account = deposit(id, amount=amount, bank=bank)
+    render_account(account)
 
 
 def process_withdraw_action(params, bank):
     id = int(params[0])
     amount = int(params[1])
-    print(withdraw(id, amount=amount, bank=bank))
+    account = withdraw(id, amount=amount, bank=bank)
+    render_account(account)
 
 
 def process_bank_with_command(command, bank):
