@@ -16,7 +16,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 
 [CS50P: Introduction to Programming with Python](https://cs50.harvard.edu/python/)\
 [Solutions](/intro-cs/intro-to-programming/harvard-cs50p) --
-[Final Project](/intro-cs/intro-to-programming/harvard-cs50p/project)
+[Final Project (private)](https://github.com/temanmd/ossu-cs-private/tree/main/harvard-cs50p-final-project)
 - [x] Functions, Variables
 - [x] Conditionals
 - [x] Loops
