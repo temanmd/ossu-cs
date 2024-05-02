@@ -15,7 +15,7 @@ def render_accounts(accounts):
 
 
 def render_table(accounts):
-    print(tabulate(accounts, headers=HEADERS, tablefmt="github"))
+    print(tabulate(accounts, headers=HEADERS, tablefmt="rounded_grid"))
 
 
 def decorate_account(account):
