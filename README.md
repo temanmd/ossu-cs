@@ -16,6 +16,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 
 [CS50P: Introduction to Programming with Python](https://cs50.harvard.edu/python/)\
 [Solutions](/intro-cs/intro-to-programming/harvard-cs50p)
+[Final Project](/intro-cs/intro-to-programming/harvard-cs50p/project)
 - [x] Functions, Variables
 - [x] Conditionals
 - [x] Loops
@@ -25,7 +26,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [x] File I/O
 - [x] Regular Expressions
 - [x] Object-Oriented Programming
-- [ ] Et Cetera
+- [x] Et Cetera
 
 ### Introduction to Computer Science
 
