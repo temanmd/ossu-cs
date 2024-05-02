@@ -66,7 +66,7 @@ def withdraw(id, amount, bank):
     if account["balance"] < amount:
         raise OutOfMoneyError(id, account["balance"])
     if account["status"] == "frozen":
-        raise AccountIsFrozenError(1)
+        raise AccountIsFrozenError(id)
     index = bank["accounts"].index(account)
     account["balance"] -= amount
     bank["accounts"][index] = account
