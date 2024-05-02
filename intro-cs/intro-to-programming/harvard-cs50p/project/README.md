@@ -8,3 +8,7 @@ My project is a bank with CLI management
 
 Just run  `python project.py`\
 and read welcome text (that is described how to manage the bank)
+
+# How it works
+
+[![asciicast](https://asciinema.org/a/aN7W2EzJMMyIrgsdC5ie51skV.svg)](https://asciinema.org/a/aN7W2EzJMMyIrgsdC5ie51skV)
