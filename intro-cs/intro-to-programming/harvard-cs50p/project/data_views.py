@@ -6,12 +6,16 @@ HEADERS = ["ID", "Name", "Balance", "Status"]
 
 def render_account(account):
     table = decorate_account(account.values())
-    print(tabulate([table], headers=HEADERS))
+    render_table([table])
 
 
 def render_accounts(accounts):
     table = list(map(lambda account: decorate_account(account.values()), accounts))
-    print(tabulate(table, headers=HEADERS))
+    render_table(table)
+
+
+def render_table(accounts):
+    print(tabulate(accounts, headers=HEADERS, tablefmt="github"))
 
 
 def decorate_account(account):
