@@ -13,6 +13,7 @@ from data_functions import (
     withdraw,
     init,
 )
+from data_views import render_account, render_accounts
 
 
 GOODBYE_TEXT = "Good bye!"
@@ -59,9 +60,9 @@ def validate_command(command):
 
 def process_show_action(params, bank):
     if params[0] == "all":
-        print(get_accounts(bank=bank))
+        render_accounts(get_accounts(bank=bank))
     else:
-        print(get_account(int(params[0]), bank=bank))
+        render_account(get_account(int(params[0]), bank=bank))
 
 
 def process_add_action(params, bank):
@@ -70,7 +71,7 @@ def process_add_action(params, bank):
         name_parts.append(part.strip('"'))
     name = " ".join(name_parts)
     account = add_account({"name": name}, bank=bank)
-    print(account)
+    render_account(account)
 
 
 def process_change_action(params, bank):
@@ -80,19 +81,19 @@ def process_change_action(params, bank):
         name_parts.append(part.strip('"'))
     name = " ".join(name_parts)
     account = change_account_name(id, new_name=name, bank=bank)
-    print(account)
+    render_account(account)
 
 
 def process_freeze_action(params, bank):
     id = int(params[0])
     account = freeze_account(id, bank=bank)
-    print(account)
+    render_account(account)
 
 
 def process_unfreeze_action(params, bank):
     id = int(params[0])
     account = unfreeze_account(id, bank=bank)
-    print(account)
+    render_account(account)
 
 
 def process_deposit_action(params, bank):
