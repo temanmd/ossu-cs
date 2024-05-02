@@ -1,4 +1,4 @@
-from project import (
+from data_functions import (
     AccountIsFrozenError,
     AccountNotFoundError,
     OutOfMoneyError,
