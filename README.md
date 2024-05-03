@@ -30,6 +30,28 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 
 ### Introduction to Computer Science
 
+#### Prerequisites -- [High school algebra](https://www.khanacademy.org/math/algebra-home)
+- [ ] Unit 1: Introduction to algebra
+- [ ] Unit 2: Solving basic equations & inequalities (one variable, linear)
+- [ ] Unit 3: Linear equations, functions, & graphs
+- [ ] Unit 4: Sequences
+- [ ] Unit 5: System of equations
+- [ ] Unit 6: Two-variable inequalities
+- [ ] Unit 7: Functions
+- [ ] Unit 8: Absolute value equations, functions, & inequalities
+- [ ] Unit 9: Quadratic equations & functions
+- [ ] Unit 10: Polynomial expressions, equations, & functions
+- [ ] Unit 11: Exponential & logarithmic functions
+- [ ] Unit 12: Radical equations & functions
+- [ ] Unit 13: Rational expressions, equations, & functions
+- [ ] Unit 14: Trigonometric functions
+- [ ] Unit 15: Algebraic modeling
+- [ ] Unit 16: Complex numbers
+- [ ] Unit 17: Conic sections
+- [ ] Unit 18: Series & induction
+- [ ] Unit 19: Vectors
+- [ ] Unit 20: Matrices
+
 ## Core CS
 
 ### Core programming
