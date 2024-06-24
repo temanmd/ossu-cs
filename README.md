@@ -52,6 +52,19 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [ ] Unit 19: Vectors
 - [ ] Unit 20: Matrices
 
+[MITx 6.00.1x Introduction to Computer Science and Programming Using Python](https://learning.edx.org/course/course-v1:MITx+6.00.1x+2T2018/home)
+
+- [ ] Week 1: Python Basics
+- [ ] Week 2: Simple Programs
+- [ ] Week 3: Structured Types
+- [ ] Midterm Exam
+- [ ] Week 4: Good Programming Practices
+- [ ] Week 5: Object Oriented Programming
+- [ ] Week 6: Algorithmic Complexity
+- [ ] Week 7: Plotting
+- [ ] Final Exam
+- [ ] Sandbox
+
 ## Core CS
 
 ### Core programming
