@@ -52,18 +52,20 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [ ] Unit 19: Vectors
 - [ ] Unit 20: Matrices
 
-[MITx 6.00.1x Introduction to Computer Science and Programming Using Python](https://learning.edx.org/course/course-v1:MITx+6.00.1x+2T2018/home)
+[MIT 6.0001 Introduction to Computer Science and Programming in Python](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
 
-- [ ] Week 1: Python Basics
-- [ ] Week 2: Simple Programs
-- [ ] Week 3: Structured Types
-- [ ] Midterm Exam
-- [ ] Week 4: Good Programming Practices
-- [ ] Week 5: Object Oriented Programming
-- [ ] Week 6: Algorithmic Complexity
-- [ ] Week 7: Plotting
-- [ ] Final Exam
-- [ ] Sandbox
+- [ ] Unit 1: What is computation?
+- [ ] Unit 2: Branching and Iteration
+- [ ] Unit 3: String Manipulation, Guess and Check, Approximations, Bisection
+- [ ] Unit 4: Decomposition, Abstractions, Functions
+- [ ] Unit 5: Tuples, Lists, Aliasing, Mutability, Cloning
+- [ ] Unit 6: Recursion, Dictionaries
+- [ ] Unit 7: Testing, Debugging, Exceptions, Assertions
+- [ ] Unit 8: Object Oriented Programming
+- [ ] Unit 9: Python Classes and Inheritance
+- [ ] Unit 10: Understanding Program Efficiency, Part 1
+- [ ] Unit 11: Understanding Program Efficiency, Part 2
+- [ ] Unit 12: Searching and Sorting
 
 ## Core CS
 
