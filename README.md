@@ -52,9 +52,10 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [ ] Unit 19: Vectors
 - [ ] Unit 20: Matrices
 
-[MIT 6.0001 Introduction to Computer Science and Programming in Python](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)
+[MIT 6.0001 Introduction to Computer Science and Programming in Python](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)\
+[Solutions](/intro-cs/intro-to-computer-science/mit-6_0001)
 
-- [ ] Unit 1: What is computation?
+- [x] Unit 1: What is computation?
 - [ ] Unit 2: Branching and Iteration
 - [ ] Unit 3: String Manipulation, Guess and Check, Approximations, Bisection
 - [ ] Unit 4: Decomposition, Abstractions, Functions
