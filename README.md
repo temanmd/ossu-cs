@@ -31,7 +31,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 ### Introduction to Computer Science
 
 #### Prerequisites -- [High school algebra](https://www.khanacademy.org/math/algebra-home)
-- [ ] Unit 1: Introduction to algebra
+- [x] Unit 1: Introduction to algebra
 - [ ] Unit 2: Solving basic equations & inequalities (one variable, linear)
 - [ ] Unit 3: Linear equations, functions, & graphs
 - [ ] Unit 4: Sequences
