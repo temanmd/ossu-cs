@@ -56,7 +56,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 [Solutions](/intro-cs/intro-to-computer-science/mit-6_0001)
 
 - [x] Unit 1: What is computation?
-- [ ] Unit 2: Branching and Iteration
+- [x] Unit 2: Branching and Iteration
 - [ ] Unit 3: String Manipulation, Guess and Check, Approximations, Bisection
 - [ ] Unit 4: Decomposition, Abstractions, Functions
 - [ ] Unit 5: Tuples, Lists, Aliasing, Mutability, Cloning
