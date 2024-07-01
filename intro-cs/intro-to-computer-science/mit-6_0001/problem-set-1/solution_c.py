@@ -23,25 +23,22 @@ def calc_best_savings_rate(annual_salary):
     down_payment = total_cost * portion_down_payment
     low_rate = 0
     high_rate = 10000
-    guess = (low_rate + high_rate) / 2
-    current_savings = 0
+    guess_savings = 0
     steps = 0
 
-    while abs(current_savings - down_payment) > 100:
-        current_savings = calc_savings_for_rate(guess / 10000, annual_salary)
-        if current_savings > down_payment:
-            high_rate = guess
-        else:
-            low_rate = guess
-        guess = (low_rate + high_rate) / 2
-        if guess == 10000:
-            break
+    while low_rate <= high_rate:
         steps += 1
+        guess = (low_rate + high_rate) // 2
+        rate = guess / 10000
+        guess_savings = calc_savings_for_rate(rate, annual_salary)
+        if abs(guess_savings - down_payment) <= 100:
+            return [True, rate, steps]
+        if guess_savings > down_payment:
+            high_rate = guess - 1
+        else:
+            low_rate = guess + 1
 
-    result = True if guess < 10000 else False
-    guess_result = round(guess / 10000, 4)
-
-    return [result, guess_result, steps]
+    return [False, None, None]
 
 
 def main():
