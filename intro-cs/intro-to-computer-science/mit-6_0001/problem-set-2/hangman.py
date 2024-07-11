@@ -12,7 +12,6 @@
 import random
 import string
 
-
 WORDLIST_FILENAME = "words.txt"
 
 
@@ -61,9 +60,11 @@ def is_word_guessed(secret_word, letters_guessed):
     returns: boolean, True if all the letters of secret_word are in letters_guessed;
       False otherwise
     """
-    for char in secret_word:
+
+    for char in set(secret_word):
         if char not in letters_guessed:
             return False
+
     return True
 
 
@@ -100,6 +101,10 @@ def get_available_letters(letters_guessed):
     return "".join(result)
 
 
+def draw_line():
+    print("-----------")
+
+
 def hangman(secret_word):
     """
     secret_word: string, the secret word to guess.
@@ -125,8 +130,72 @@ def hangman(secret_word):
 
     Follows the other limitations detailed in the problem write-up.
     """
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    guesses = 6
+    warnings = 3
+    letters_guessed = set()
+    vowels = ["a", "e", "i", "o", "u"]
+
+    print("Welcome to the game Hangman!")
+    print(f"I am thinking of a word that is {len(secret_word)} letters long.")
+    print(f"You have {warnings} warnings left.")
+
+    while True:
+        draw_line()
+        print(f"You have {guesses} guesses left.")
+        print("Available letters:", get_available_letters(letters_guessed))
+
+        guess_letter = input("Please guess a letter: ").strip().lower()
+
+        if len(guess_letter) > 1 or not guess_letter.isalpha():
+            if warnings > 0:
+                warnings -= 1
+                warnings_left_text = f"You have {warnings} warnings left"
+            else:
+                guesses -= 1
+                warnings_left_text = "You have no warnings left so you lose one guess"
+                if guesses == 0:
+                    break
+            print("Oops! That is not a valid letter. ", end="")
+            print(
+                f"{warnings_left_text}: {get_guessed_word(secret_word, letters_guessed)}"
+            )
+        elif guess_letter in letters_guessed:
+            if warnings > 0:
+                warnings -= 1
+                warnings_left_text = f"You have {warnings} warnings left"
+            else:
+                guesses -= 1
+                warnings_left_text = "You have no warnings left so you lose one guess"
+                if guesses == 0:
+                    break
+            print("Oops! You've already guessed that letter. ", end="")
+            print(
+                f"{warnings_left_text}: {get_guessed_word(secret_word, letters_guessed)}"
+            )
+        else:
+            letters_guessed.add(guess_letter)
+            guessed_word = get_guessed_word(secret_word, letters_guessed)
+            if guess_letter in secret_word:
+                print(f"Good guess: {guessed_word}")
+            else:
+                print("Oops! That letter is not in my word.")
+                if guess_letter in vowels:
+                    guesses -= 2
+                else:
+                    guesses -= 1
+                if guesses < 1:
+                    break
+                print(f"Please guess a letter: {guessed_word}")
+            if is_word_guessed(secret_word, letters_guessed):
+                break
+
+    draw_line()
+    if guesses == 0:
+        print(f"Sorry, you ran out of guesses. The word was {secret_word}.")
+    else:
+        score = guesses * len(set(secret_word))
+        print("Congratulations, you won!")
+        print(f"Your total score for this game is: {score}")
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -209,11 +278,12 @@ if __name__ == "__main__":
     # uncomment the following two lines.
 
     secret_word = choose_word(wordlist)
+    print(secret_word)
     hangman(secret_word)
 
-    print(is_word_guessed("apple", ["l", "x", "p", "a"]))
-    print(get_guessed_word("apple", ["e", "i", "k", "p", "r", "s"]))
-    print(get_available_letters(["e", "i", "k", "p", "r", "s"]))
+    # print(is_word_guessed("apple", ["l", "x", "p", "a"]))
+    # print(get_guessed_word("apple", ["e", "i", "k", "p", "r", "s"]))
+    # print(get_available_letters(["e", "i", "k", "p", "r", "s"]))
 
 ###############
 
