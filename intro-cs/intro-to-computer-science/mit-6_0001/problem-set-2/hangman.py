@@ -105,6 +105,22 @@ def draw_line():
     print("-----------")
 
 
+def get_warnings_left_text(warnings):
+    return f"You have {warnings} warnings left."
+
+
+def handle_wrong_answer(warnings, guesses):
+    new_warnings = warnings
+    new_guesses = guesses
+    if warnings > 0:
+        new_warnings -= 1
+        warnings_left_text = get_warnings_left_text(new_warnings)
+    else:
+        new_guesses -= 1
+        warnings_left_text = "You have no warnings left so you lose one guess"
+    return [new_warnings, new_guesses, warnings_left_text]
+
+
 def hangman(secret_word):
     """
     secret_word: string, the secret word to guess.
@@ -137,7 +153,7 @@ def hangman(secret_word):
 
     print("Welcome to the game Hangman!")
     print(f"I am thinking of a word that is {len(secret_word)} letters long.")
-    print(f"You have {warnings} warnings left.")
+    print(get_warnings_left_text(warnings))
 
     while True:
         draw_line()
@@ -146,29 +162,20 @@ def hangman(secret_word):
 
         guess_letter = input("Please guess a letter: ").strip().lower()
 
-        if len(guess_letter) > 1 or not guess_letter.isalpha():
-            if warnings > 0:
-                warnings -= 1
-                warnings_left_text = f"You have {warnings} warnings left"
-            else:
-                guesses -= 1
-                warnings_left_text = "You have no warnings left so you lose one guess"
-                if guesses == 0:
-                    break
-            print("Oops! That is not a valid letter. ", end="")
-            print(
-                f"{warnings_left_text}: {get_guessed_word(secret_word, letters_guessed)}"
+        wrong_answer = len(guess_letter) > 1 or not guess_letter.isalpha()
+        already_guessed = guess_letter in letters_guessed
+
+        if wrong_answer or already_guessed:
+            warnings, guesses, warnings_left_text = handle_wrong_answer(
+                warnings, guesses
             )
-        elif guess_letter in letters_guessed:
-            if warnings > 0:
-                warnings -= 1
-                warnings_left_text = f"You have {warnings} warnings left"
+            if wrong_answer:
+                print("Oops! That is not a valid letter. ", end="")
             else:
-                guesses -= 1
-                warnings_left_text = "You have no warnings left so you lose one guess"
-                if guesses == 0:
-                    break
-            print("Oops! You've already guessed that letter. ", end="")
+                print("Oops! You've already guessed that letter. ", end="")
+            if guesses == 0:
+                print()
+                break
             print(
                 f"{warnings_left_text}: {get_guessed_word(secret_word, letters_guessed)}"
             )
