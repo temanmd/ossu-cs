@@ -223,8 +223,23 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise:
     """
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    index = 0
+    missed_chars = []
+
+    for char in other_word:
+        if char == my_word[index]:
+            if char in missed_chars:
+                return False
+            index += 1
+            next
+        else:
+            if my_word[index] == "_":
+                missed_chars.append(char)
+                index += 2
+            else:
+                return False
+
+    return True
 
 
 def show_possible_matches(my_word):
