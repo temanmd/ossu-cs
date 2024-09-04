@@ -223,23 +223,31 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise:
     """
-    index = 0
+    my_index = 0
+    other_index = 0
     missed_chars = []
 
-    for char in other_word:
-        if char == my_word[index]:
-            if char in missed_chars:
+    while my_index < len(my_word):
+        my_letter = my_word[my_index]
+        try:
+            other_letter = other_word[other_index]
+        except IndexError:
+            return False
+
+        if my_letter == other_letter:
+            if my_letter in missed_chars:
                 return False
-            index += 1
-            next
+            my_index += 1
         else:
-            if my_word[index] == "_":
-                missed_chars.append(char)
-                index += 2
+            if my_letter == "_":
+                missed_chars.append(other_letter)
+                my_index += 2
             else:
                 return False
 
-    return True
+        other_index += 1
+
+    return True if other_index == len(other_word) else False
 
 
 def show_possible_matches(my_word):
@@ -252,8 +260,17 @@ def show_possible_matches(my_word):
              that has already been revealed.
 
     """
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    result = []
+
+    for word in wordlist:
+        if match_with_gaps(my_word, word):
+            result.append(word)
+
+    if result == []:
+        print("No matches found")
+        return
+
+    print(" ".join(result))
 
 
 def hangman_with_hints(secret_word):
@@ -302,6 +319,16 @@ if __name__ == "__main__":
     secret_word = choose_word(wordlist)
     print(secret_word)
     hangman(secret_word)
+
+    # show_possible_matches("t_ _ t")
+    # show_possible_matches("abbbb_ ")
+    # show_possible_matches("a_ pl_ ")
+
+    # print(match_with_gaps("t_ _ t", "to"))
+    # print(match_with_gaps("te_ t", "tact"))
+    # print(match_with_gaps("a_ _ le", "banana"))
+    # print(match_with_gaps("a_ _ le", "apple"))
+    # print(match_with_gaps("a_ ple", "apple"))
 
     # print(is_word_guessed("apple", ["l", "x", "p", "a"]))
     # print(get_guessed_word("apple", ["e", "i", "k", "p", "r", "s"]))
