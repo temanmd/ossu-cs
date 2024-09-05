@@ -59,7 +59,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [x] Unit 2: Branching and Iteration
 - [x] Unit 3: String Manipulation, Guess and Check, Approximations, Bisection
 - [x] Unit 4: Decomposition, Abstractions, Functions
-- [ ] Unit 5: Tuples, Lists, Aliasing, Mutability, Cloning
+- [x] Unit 5: Tuples, Lists, Aliasing, Mutability, Cloning
 - [ ] Unit 6: Recursion, Dictionaries
 - [ ] Unit 7: Testing, Debugging, Exceptions, Assertions
 - [ ] Unit 8: Object Oriented Programming
