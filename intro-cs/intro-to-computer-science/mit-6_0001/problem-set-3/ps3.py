@@ -334,7 +334,6 @@ def play_hand(hand, word_list):
       returns: the total score for the hand
     """
     score = 0
-
     while True:
         show_hand_lines(hand)
         word = input('Enter word, or "!!" to indicate that you are finished: ').strip()
