@@ -59,7 +59,6 @@ def load_words():
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-
     print("Loading word list from file...")
     # inFile: file
     inFile = open(WORDLIST_FILENAME, "r")
@@ -80,7 +79,6 @@ def get_frequency_dict(sequence):
     sequence: string or list
     return: dictionary
     """
-
     # freqs: dictionary (element_type -> int)
     freq = {}
     for x in sequence:
@@ -120,8 +118,11 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    first_part = 0
+    for char in word.lower():
+        first_part += SCRABBLE_LETTER_VALUES.get(char, 0)
+    second_part = max([(7 * len(word) - 3 * (n - len(word))), 1])
+    return first_part * second_part
 
 
 #
@@ -139,11 +140,26 @@ def display_hand(hand):
 
     hand: dictionary (string -> int)
     """
-
     for letter in hand.keys():
         for j in range(hand[letter]):
             print(letter, end=" ")  # print all on the same line
     print()  # print an empty line
+
+
+def insert_wildcard_into_hand(hand):
+    """
+    Replaces random vowel with "*" wildcard char in the hand
+
+    Does not mutate passed hand
+
+    hand: dictionary (string-> int)
+    returns: dictionary (string-> int)
+    """
+    hand_copy = hand.copy()
+    random_vowel = random.choice(list(hand_copy))
+    del hand_copy[random_vowel]
+    hand_copy["*"] = 1
+    return hand_copy
 
 
 #
@@ -163,18 +179,15 @@ def deal_hand(n):
     n: int >= 0
     returns: dictionary (string -> int)
     """
-
     hand = {}
     num_vowels = int(math.ceil(n / 3))
-
     for i in range(num_vowels):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
-
+    hand = insert_wildcard_into_hand(hand)
     for i in range(num_vowels, n):
         x = random.choice(CONSONANTS)
         hand[x] = hand.get(x, 0) + 1
-
     return hand
 
 
@@ -199,8 +212,31 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)
     returns: dictionary (string -> int)
     """
+    hand_copy = hand.copy()
+    for char in word.lower():
+        if char in hand_copy:
+            if hand_copy[char] < 2:
+                del hand_copy[char]
+            else:
+                hand_copy[char] -= 1
+    return hand_copy
 
-    pass  # TO DO... Remove this line when you implement this function
+
+def is_word_in_list(word, word_list):
+    """
+    Returns True if word is in word_list
+
+    word: string
+    word_list: list of lowercase strings
+    returns: bool
+    """
+    if "*" in word:
+        for vowel in VOWELS:
+            if word.lower().replace("*", vowel) in word_list:
+                return True
+        return False
+    else:
+        return word.lower() in word_list
 
 
 #
@@ -215,10 +251,14 @@ def is_valid_word(word, hand, word_list):
     word: string
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
-    returns: boolean
+    returns: bool
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    hand_copy = hand.copy()
+    for char in word.lower():
+        if char not in hand_copy:
+            return False
+        hand_copy = update_hand(hand_copy, char)
+    return True if is_word_in_list(word, word_list) else False
 
 
 #
@@ -231,8 +271,38 @@ def calculate_handlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
+    return sum(hand.values())
 
-    pass  # TO DO... Remove this line when you implement this function
+
+def total_score_text(score):
+    """
+    Returns total score text
+
+    score: int
+    returns: string
+    """
+    return f"Total score for this hand: {score}"
+
+
+def show_hand_lines(hand):
+    """
+    Shows current hand info
+
+    hand: dictionary (string -> int)
+    returns: None
+    """
+    print("Current Hand: ", end="")
+    display_hand(hand)
+
+
+def offer_replay_or_break():
+    """
+    Shows replay offer
+
+    returns: bool
+    """
+    answer = input("Would you like to replay the hand? ").strip()
+    return True if answer == "yes" else False
 
 
 def play_hand(hand, word_list):
@@ -262,38 +332,28 @@ def play_hand(hand, word_list):
       hand: dictionary (string -> int)
       word_list: list of lowercase strings
       returns: the total score for the hand
-
     """
+    score = 0
 
-    # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
-    # Keep track of the total score
-
-    # As long as there are still letters left in the hand:
-
-    # Display the hand
-
-    # Ask user for input
-
-    # If the input is two exclamation points:
-
-    # End the game (break out of the loop)
-
-    # Otherwise (the input is not two exclamation points):
-
-    # If the word is valid:
-
-    # Tell the user how many points the word earned,
-    # and the updated total score
-
-    # Otherwise (the word is not valid):
-    # Reject invalid word (print a message)
-
-    # update the user's hand by removing the letters of their inputted word
-
-    # Game is over (user entered '!!' or ran out of letters),
-    # so tell user the total score
-
-    # Return the total score as result of function
+    while True:
+        show_hand_lines(hand)
+        word = input('Enter word, or "!!" to indicate that you are finished: ').strip()
+        if word == "!!":
+            print(total_score_text(score))
+            break
+        if is_valid_word(word, hand, word_list):
+            word_score = get_word_score(word, calculate_handlen(hand))
+            score += word_score
+            print(f'"{word}" earned {word_score} points. {total_score_text(score)}')
+        else:
+            print("That is not a valid word. Please choose another word.")
+        hand = update_hand(hand, word)
+        print()
+        if calculate_handlen(hand) == 0:
+            print("Ran out of letters")
+            print(total_score_text(score))
+            break
+    return score
 
 
 #
@@ -328,8 +388,26 @@ def substitute_hand(hand, letter):
     letter: string
     returns: dictionary (string -> int)
     """
+    hand_copy = hand.copy()
+    if letter in hand_copy:
+        letter_count = hand_copy[letter]
+        del hand_copy[letter]
+        letters = VOWELS + CONSONANTS
+        letters_except_hand = [
+            letter for letter in letters if letter not in hand_copy.keys()
+        ]
+        new_letter = random.choice(letters_except_hand)
+        hand_copy[new_letter] = letter_count
+    return hand_copy
 
-    pass  # TO DO... Remove this line when you implement this function
+
+def show_line():
+    """
+    Shows horizontal separator line
+
+    returns: None
+    """
+    print("----------")
 
 
 def play_game(word_list):
@@ -362,10 +440,34 @@ def play_game(word_list):
 
     word_list: list of lowercase strings
     """
-
-    print(
-        "play_game not implemented."
-    )  # TO DO... Remove this line when you implement this function
+    total_score = 0
+    replay_used = False
+    substitute_used = False
+    hands_count = int(input("Enter total number of hands: ").strip())
+    for _ in range(hands_count):
+        is_replay = False
+        hand = deal_hand(HAND_SIZE)
+        show_hand_lines(hand)
+        if not substitute_used:
+            need_substitute = input("Would you like to substitute a letter? ").strip()
+            if need_substitute == "yes":
+                substitute_used = True
+                letter_to_replace = input(
+                    "Which letter would you like to replace: "
+                ).strip()
+                hand = substitute_hand(hand, letter_to_replace)
+        print()
+        hand_score = play_hand(hand, word_list)
+        show_line()
+        if not replay_used and offer_replay_or_break():
+            replay_used = True
+            replay_hand = deal_hand(HAND_SIZE)
+            replay_score = play_hand(replay_hand, word_list)
+            show_line()
+            hand_score = max([hand_score, replay_score])
+        total_score += hand_score
+    print(f"Total score over all hands: {total_score}")
+    return total_score
 
 
 #

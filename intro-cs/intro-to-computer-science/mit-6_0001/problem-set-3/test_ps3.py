@@ -246,6 +246,21 @@ def test_is_valid_word(word_list):
 # end of test_is_valid_word
 
 
+def test_deal_hand():
+    print(deal_hand(2))
+    print(deal_hand(4))
+    print(deal_hand(7))
+    print(deal_hand(10))
+    print(deal_hand(11))
+
+
+def test_is_word_in_list():
+    print(f"Result for ac*d: {is_word_in_list("ac*d", word_list)}")
+    print(f"Result for Gr*y: {is_word_in_list("Gr*y", word_list)}")
+    print(f"Result for ME*TLY: {is_word_in_list("ME*TLY", word_list)}")
+    print(f"Result for S*OOF: {is_word_in_list("S*OOF", word_list)}")
+
+
 def test_wildcard(word_list):
     """
     Unit test for is_valid_word
@@ -324,6 +339,12 @@ test_update_hand()
 print("----------------------------------------------------------------------")
 print("Testing is_valid_word...")
 test_is_valid_word(word_list)
+print("----------------------------------------------------------------------")
+print("Testing deal_hand...")
+test_deal_hand()
+print("----------------------------------------------------------------------")
+print("Testing is_word_in_list...")
+test_is_word_in_list()
 print("----------------------------------------------------------------------")
 print("Testing wildcards...")
 test_wildcard(word_list)
