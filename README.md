@@ -62,7 +62,7 @@ It's for those who want a proper, *well-rounded* grounding in concepts fundament
 - [x] Unit 5: Tuples, Lists, Aliasing, Mutability, Cloning
 - [x] Unit 6: Recursion, Dictionaries
 - [x] Unit 7: Testing, Debugging, Exceptions, Assertions
-- [ ] Unit 8: Object Oriented Programming
+- [x] Unit 8: Object Oriented Programming
 - [ ] Unit 9: Python Classes and Inheritance
 - [ ] Unit 10: Understanding Program Efficiency, Part 1
 - [ ] Unit 11: Understanding Program Efficiency, Part 2
