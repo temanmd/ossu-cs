@@ -42,9 +42,9 @@ if __name__ == "__main__":
     print('Input:', example_input)
     print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
     print('Actual Output:', get_permutations(example_input))
-        
+
     # Put three example test cases here (for your sanity, limit your inputs
-    to be three characters or fewer as you will have n! permutations for a 
+    to be three characters or fewer as you will have n! permutations for a
     sequence of length n)
     """
     print("Input:", "abc")
