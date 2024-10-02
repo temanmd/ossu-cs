@@ -144,7 +144,7 @@ class DecryptTry:
         self.__score = 0
 
     def calc_score(self):
-        for word in self.__message_to_words().split():
+        for word in self.__message_to_words():
             if word.lower() in VALID_WORDS:
                 self.__score += 1
 
@@ -155,11 +155,11 @@ class DecryptTry:
         return self.__message
 
     def __message_to_words(self):
-        only_letters = ""
+        only_letters_and_spaces = ""
         for char in self.__message:
             if char.lower() in ALL_LOWER_LETTERS or char == " ":
-                only_letters += char
-        return only_letters
+                only_letters_and_spaces += char
+        return only_letters_and_spaces.split()
 
 
 class EncryptedSubMessage(SubMessage):
