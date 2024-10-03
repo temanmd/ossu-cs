@@ -25,14 +25,12 @@ def get_permutations(sequence):
     """
     if len(sequence) == 1:
         return set(sequence)
-    if len(sequence) == 2:
-        return set({sequence, sequence[1] + sequence[0]})
     result = set()
     for index in range(len(sequence)):
-        chars_range = sequence[:index] + sequence[index + 1 :]
-        for permutation in get_permutations(chars_range):
+        remaining_chars = sequence[:index] + sequence[index + 1 :]
+        for permutation in get_permutations(remaining_chars):
             result.add(sequence[index] + permutation)
-    return result
+    return list(result)
 
 
 if __name__ == "__main__":
